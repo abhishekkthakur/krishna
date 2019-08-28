@@ -1,0 +1,27 @@
+&control
+    calculation='XX',
+    restart_mode='from_scratch',
+    prefix='Graphane_1x1_PBE',
+    pseudo_dir = '../pseudo',        
+    outdir='../tmp',
+/
+ &system
+    ibrav=  4, celldm(1) =4.6542890, celldm(3)=3, nat= 4, ntyp= 2,
+    ecutwfc =20, ecutrho =200 ,    
+    occupations='smearing', smearing='gaussian', degauss=0.01,
+ /
+ &electrons
+    conv_thr = 1.0d-8
+ /
+&ions
+/
+ATOMIC_SPECIES
+C  12.0107 C.pbe-rrkjus.UPF
+H  1.00007 H.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+C    0.000000    0.000000    0.500000
+C    0.333333    0.666667    0.500000
+H
+H
+K_POINTS {automatic}
+9 9 1 0 0 0

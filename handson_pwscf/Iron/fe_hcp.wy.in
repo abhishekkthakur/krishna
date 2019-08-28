@@ -1,0 +1,23 @@
+ &control
+    prefix='fe'
+ /
+ &system
+    ! Specify lattice as space group number + Wyckoff positions !
+    ! On input, nat = number of Wyckoff positions, not of atoms !
+    space_group=194, celldm(1)=5.0, celldm(3)=1.633, nat=1, ntyp= 1,
+    ecutwfc = 25.0, ecutrho = 200.0,
+    occupations='smearing', smearing='mv', degauss=0.02,
+    nbnd=12,
+    nspin=2, 
+    starting_magnetization(1)=0.4
+ /
+ &electrons
+    mixing_beta = 0.5 
+ /
+ATOMIC_SPECIES
+ Fe  1.  Fe.pbe-nd-rrkjus.UPF
+# crystal_sg: use Wyckoff positions with needed parameters (none in this case)
+ATOMIC_POSITIONS crystal_sg
+ Fe 2c
+K_POINTS automatic
+8 8 6 0 0 0

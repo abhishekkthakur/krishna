@@ -1,0 +1,49 @@
+#!/bin/sh
+####################################################################
+#
+# define the following variables according to your needs
+#
+outdir=temporary_directory_for_large_files
+pseudo_dir=directory_where_pp-files_are_kept
+
+# espresso_dir=top_directory_of_espresso_package
+####################################################################
+
+nk=6
+for smearing in gauss m-p m-v ; do
+
+rm -f al.test.out al.$smearing.$nk
+touch al.$smearing.$nk
+
+for degauss in 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10 0.11 0.12 0.13 0.14 0.15; do
+
+cat > al.test.in << EOF
+ &control
+    prefix='al',
+    pseudo_dir = '$pseudo_dir/',
+    outdir='$outdir/'
+ /
+ &system    
+    ibrav=  2, celldm(1) =7.50, nat=  1, ntyp= 1,
+    ecutwfc =12.0, 
+    occupations='smearing', smearing='$smearing', degauss=$degauss
+ /
+ &electrons
+ /
+ATOMIC_SPECIES
+ Al  26.98 Al.pz-vbc.UPF
+ATOMIC_POSITIONS
+ Al 0.00 0.00 0.00 
+K_POINTS automatic
+$nk $nk $nk 1 1 1
+EOF
+
+pw.x -in al.test.in > al.test.out
+
+grep -e width -e ! al.test.out | \
+    awk '/width/{degauss=$(NF)}/!/{print degauss, $(NF-1)}' >> al.$smearing.$nk
+
+done
+done
+
+mv al.gauss.$nk al.g.$nk

@@ -1,0 +1,64 @@
+#!/bin/sh
+####################################################################
+#
+# define the following variables according to your needs
+#
+outdir=temporary_directory_for_large_files
+pseudo_dir=directory_where_pp-files_are_kept
+# espresso_dir=top_directory_of_espresso_package
+####################################################################
+
+rm -f fe.hcp.in fe.hcp.out fe.etot_vs_v 
+touch fe.etot_vs_v
+
+# dual is the ratio between ecutrho and ecutwfc
+dual=12
+# cbya is the c/a ration, initially set to its ideal value
+cbya=1.633
+for alat in 4.5 4.6 4.7 4.8 4.9; do
+
+cat > fe.hcp.in << EOF
+ &control
+    calculation='vc-relax'
+    outdir='$outdir'
+    pseudo_dir = '$pseudo_dir',
+    !verbosity = 'high',
+    prefix='fe',
+ /
+ &system
+    ibrav= 4, celldm(1)=$alat, celldm(3)=$cbya, nat=2, ntyp= 1,
+    ecutwfc = 30, ecutrho = 200,
+    occupations='smearing', smearing='mv', degauss=0.01,
+    nbnd = 8,
+    nspin=2, starting_magnetization(1)= 0.4
+ /
+ &electrons
+ /
+ &ions
+ /
+ &cell
+    cell_dofree='shape'
+ /
+ATOMIC_SPECIES
+ Fe  1.  Fe.pbe-nd-rrkjus.UPF
+ATOMIC_POSITIONS alat
+ Fe 0.0 0.00       0.0 
+ Fe 0.0 0.5773503  0.8165
+K_POINTS automatic
+8 8 6 0 0 0
+EOF
+
+pw.x -in fe.hcp.in > fe.hcp.out
+
+# extract Etot from output
+etot=`grep -e ! fe.hcp.out | awk '{print $(NF-1)}' | tail -1`
+v=`grep -e volume fe.hcp.out | awk '{print $(NF-1)}' | tail -1`
+c=`grep -A3 CELL_PARAMETERS fe.hcp.out | tail -1| awk '{print $(NF)}'`
+f=`grep -A1 CELL_PARAMETERS fe.hcp.out | tail -1| awk '{print $1}'`
+afin=`echo $alat*$f | bc -l`
+cfin=`echo $c/$f | bc -l`
+
+echo $v $etot $afin $cfin >> fe.etot_vs_v
+
+done
+

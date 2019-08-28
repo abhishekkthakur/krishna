@@ -1,0 +1,83 @@
+#!/bin/sh
+####################################################################
+#
+# define the following variables according to your needs
+#
+outdir=temporary_directory_for_large_files
+pseudo_dir=directory_where_pp-files_are_kept
+# espresso_dir=top_directory_of_espresso_package
+####################################################################
+
+rm -f fe.ecut.out fe.etot_vs_ecut 
+touch fe.etot_vs_ecut
+
+# dual is the ratio between ecutrho and ecutwfc
+dual=12
+for ecutwfc in 25 30 35 40 45 50 ; do
+
+# the following means ecutrho=dual*ecutwfc
+ecutrho=`echo $ecutwfc '*' $dual | bc -l`
+echo $ecut
+cat > fe.ecut.in << EOF
+ &control
+    outdir='$outdir'
+    pseudo_dir = '$pseudo_dir',
+    !verbosity = 'high',
+    prefix='fe',
+ /
+ &system
+    ibrav=  3, celldm(1)=5.42, nat=  1, ntyp= 1,
+    ecutwfc = $ecutwfc, ecutrho = $ecutrho,
+    occupations='smearing', smearing='mv', degauss=0.01,
+    nbnd = 8,
+    nspin=2, starting_magnetization(1)= 0.6
+ /
+ &electrons
+ /
+ATOMIC_SPECIES
+ Fe  1.  Fe.pbe-nd-rrkjus.UPF
+ATOMIC_POSITIONS crystal
+ Fe 0.0  0.0  0.0 
+! this is a comment that the code will ignore
+! grid below same as 8 8 8 0 0 0
+K_POINTS tpiba
+ 29
+   0.0000000   0.0000000   0.0000000   1.
+   0.0000000  -0.1250000   0.1250000  12.
+   0.0000000  -0.2500000   0.2500000  12.
+   0.0000000  -0.3750000   0.3750000  12.
+   0.0000000   0.5000000  -0.5000000   6.
+  -0.1250000  -0.1250000   0.2500000  24.
+  -0.1250000  -0.2500000   0.3750000  48.
+  -0.1250000   0.6250000  -0.5000000  48.
+  -0.2500000   0.7500000  -0.5000000  24.
+  -0.2500000   0.6250000  -0.3750000  24.
+   0.0000000   0.0000000   0.2500000   6.
+   0.0000000  -0.1250000   0.3750000  24.
+   0.0000000  -0.2500000   0.5000000  24.
+   0.0000000   0.6250000  -0.3750000  12.
+  -0.1250000  -0.1250000   0.5000000  24.
+  -0.1250000   0.7500000  -0.3750000  48.
+  -0.2500000   0.2500000   0.2500000   8.
+  -0.2500000   0.7500000  -0.2500000   8.
+   0.6250000  -0.6250000   0.2500000  24.
+   0.5000000  -0.5000000   0.2500000  12.
+   0.5000000  -0.6250000   0.3750000  24.
+   0.0000000   0.0000000   0.5000000   6.
+   0.0000000  -0.1250000   0.6250000  24.
+   0.0000000   0.7500000  -0.2500000  12.
+  -0.1250000   0.8750000  -0.2500000  24.
+   0.5000000  -0.5000000   0.5000000   2.
+   0.0000000   0.0000000   0.7500000   6.
+   0.0000000   0.8750000  -0.1250000  12.
+   0.0000000   0.0000000  -1.0000000   1.
+EOF
+
+pw.x -in fe.ecut.in > fe.ecut.out'
+
+# extract Etot from output
+etot=`grep -e ! fe.ecut.out | awk '{print $(NF-1)}'`
+echo $ecutwfc $ecutrho $etot  >> fe.etot_vs_ecut.$dual
+
+done
+
