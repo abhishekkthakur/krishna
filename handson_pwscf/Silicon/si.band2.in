@@ -1,8 +1,6 @@
  &bands
-    ! prefix must be the same as in the band calculation
     prefix  = 'silicon'
-    ! outdir must be the same as in the band calculation
-    outdir='directory where data files are read/'
+    outdir='./output'
     filband = 'sibands.dat'
     lsym=.true.
  /
