@@ -1,0 +1,12 @@
+# Folders to ignore 
+atat/
+atat_36.tar.gz/
+handson_pwscf.tar.gz/
+temp/
+
+# Files to ignore
+*.pbs
+ATAT.*
+*_HCP.*
+*_BCC.*
+*.wfc*

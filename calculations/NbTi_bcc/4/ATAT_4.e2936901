@@ -1,0 +1,2 @@
+/cm/local/apps/environment-modules/4.0.0//init/bash: line 18: QUANTUM-ESPRESSO_BASE=/cm/shared/uaapps/quantum-espresso/6.3: No such file or directory
+/cm/local/apps/environment-modules/4.0.0//init/bash: line 18: export: `QUANTUM-ESPRESSO_BASE': not a valid identifier
