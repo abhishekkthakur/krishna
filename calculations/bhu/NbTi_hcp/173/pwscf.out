@@ -1510,6 +1510,7 @@ Nb      10.167327180   0.837951711  -7.055765799
 
      iteration # 28     ecut=    40.00 Ry     beta= 0.60
      Davidson diagonalization with overlap
+<<<<<<< HEAD
      ethr =  2.72E-12,  avg # of iterations =  5.0
 
      total cpu time spent up to now is    12715.9 secs
@@ -5769,3 +5770,5 @@ End final coordinates
 =------------------------------------------------------------------------------=
    JOB DONE.
 =------------------------------------------------------------------------------=
+=======
+>>>>>>> 916d4709b2147fd693e56315b3824d3945851775
