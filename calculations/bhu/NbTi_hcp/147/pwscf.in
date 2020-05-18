@@ -1,0 +1,55 @@
+&control
+   calculation = 'vc-relax' ,
+   prefix = 'pwscf' ,
+   outdir = './temp/' ,
+   pseudo_dir = './' ,
+   disk_io = 'none' ,
+   etot_conv_thr = 1.0d-10 ,
+   forc_conv_thr = 1.0d-5 ,
+/
+&system
+   ibrav = 0 ,
+   celldm(1) = 1.889725989 ,
+   ecutwfc = 40 ,
+   ecutrho = 400 ,
+   occupations = 'smearing' ,
+   smearing = 'mv' ,
+   degauss = 0.02 ,
+   nat = 8 , 
+   ntyp = 2 , 
+/
+&electrons
+   conv_thr = 1.0d-10 ,
+   diagonalization = 'david' ,
+   mixing_mode = 'plain' ,
+   startingpot = 'atomic' ,
+   startingwfc = 'atomic+random' ,
+   mixing_beta = 0.6 ,
+/
+&ions
+   ion_dynamics = 'bfgs' ,
+/
+&cell
+   cell_dynamics = 'bfgs' ,
+   cell_factor = 2.0 ,
+   press = 0.0 ,
+   press_conv_thr = 1.0d-3 ,
+/
+CELL_PARAMETERS alat
+-1.522502000 2.637051000 4.972461000
+-1.522502000 2.637051000 -4.972461000
+-4.567506000 -2.637051000 0.000000000
+ATOMIC_SPECIES
+  Nb 92.90638 Nb.pbe-nsp-van.UPF
+  Ti 47.86700 Ti.pbe-sp-van_ak.UPF
+ATOMIC_POSITIONS angstrom
+  Nb -7.612510000 2.637051000 0.000000000
+  Ti -3.045002477 3.516067121 -2.486230500
+  Ti -4.567506000 2.637051000 0.000000000
+  Ti -4.567504477 0.879016121 -2.486230500
+  Ti -6.090008000 0.000000000 0.000000000
+  Nb -3.045002477 3.516067121 2.486230500
+  Nb -3.045004000 0.000000000 0.000000000
+  Nb -4.567504477 0.879016121 2.486230500
+K_POINTS automatic
+   10 10 11 0 0 0

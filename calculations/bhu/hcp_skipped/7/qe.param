@@ -1,0 +1,7 @@
+# The rule for make atomic_species card:
+# set the ppXXX as the name of certain line
+# then, write down the elemental symbol, mass
+# and pseudo-potential name info.
+
+ppNb     Nb   92.906   Nb.pbe-nsp-van.UPF
+ppTi     Ti   47.867   Ti.pbe-sp-van_ak.UPF
