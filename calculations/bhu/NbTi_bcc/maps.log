@@ -1,6 +1,6 @@
 Maps version 3.36
 The internal database of structures extends at least up to 3 atoms/unit cell, see predstr.out
-Among structures of known energy, true ground states differ from fitted ground states
-New ground states with at most 4 atoms/unit cell predicted , see predstr.out
+Among structures of known energy, true and predicted ground states agree
+No other ground states of 4 atoms/unit cell or less exist.
 Concentration range used for ground state checking: [0,1].
-Crossvalidation score: 0.0051883
+Crossvalidation score: 0.0117709

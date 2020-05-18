@@ -10,7 +10,11 @@ KPPRA=8000
 # Set the command to run pw.x, for example,
 # if you wanna run it with 4 cores/cpus, set it
 # as "$MPI_PATH/mpirun -n 4 $QE_PATH/pw.x"
+<<<<<<< HEAD
 PWCOMMAND="mpirun -np 12 pw.x"
+=======
+PWCOMMAND="mpirun -np 4 pw.x"
+>>>>>>> 5e9e5684d371b66e74b3227e06fdcc8ee35ef154
 
 # Set some calculation parameters here, which contents:
 # cut-off energy for wave-functions and charge density;
