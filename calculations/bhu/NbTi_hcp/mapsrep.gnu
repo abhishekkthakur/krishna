@@ -4,12 +4,7 @@ set title "Fitted Energies"
 plot [0:1] \
 'predstr.out' u 1:3 t "predicted" w p pt 2, \
 'fit.out' u 1:3 t  "known str" w p pt 1, \
-<<<<<<< HEAD
 'gs.out' u 1:3 t "known gs" w linesp lt 3
-=======
-'gs.out' u 1:3 t "known gs" w linesp lt 3, \
-'newgs.out' u 1:3 t "predicted gs" w p pt 4
->>>>>>> 5e9e5684d371b66e74b3227e06fdcc8ee35ef154
 pause -1
 set title "Calculated Energies"
 plot [0:1] \

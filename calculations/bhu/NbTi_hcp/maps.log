@@ -2,4 +2,4 @@ Maps version 3.36
 The internal database of structures extends at least up to 0 atoms/unit cell, see predstr.out
 Among structures of known energy, true ground states differ from fitted ground states
 Concentration range used for ground state checking: [0,1].
-Crossvalidation score: 3.52657e+22
+Crossvalidation score: 0.089836

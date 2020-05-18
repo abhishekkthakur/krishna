@@ -54,10 +54,6 @@ plt.ylabel('Formation energy')
 plt.xlim([0, 1])
 #plt.ylim([-0.005, 0.1])
 plt.legend()
-<<<<<<< HEAD
 plt.grid()
-#plt.show()
-plt.savefig('NbTi_hcp_convex_hull.png', dpi = 600)
-=======
 plt.show()
->>>>>>> 5e9e5684d371b66e74b3227e06fdcc8ee35ef154
+#plt.savefig('NbTi_hcp_convex_hull.png', dpi = 600)
